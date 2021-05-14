@@ -61,7 +61,20 @@ public class MainActivity extends AppCompatActivity {
         // text did change
         String newText = editTextUserInput.getText().toString();
         // todo: check conditions to decide if button should be enabled/disabled (see spec below)
-        buttonCalculateRoots.setEnabled(true); /////////////////////////////
+        buttonCalculateRoots.setEnabled(true);
+        try {
+          long userInputLong = Long.parseLong(newText);
+          if(userInputLong>1){
+            buttonCalculateRoots.setEnabled(true);
+            buttonCalc = true;
+
+          }
+          else{
+            buttonCalculateRoots.setEnabled(false);
+            buttonCalc = false;
+          }
+        } catch(NumberFormatException e){
+        }
       }
     });
 
@@ -82,11 +95,11 @@ public class MainActivity extends AppCompatActivity {
       intentToOpenService.putExtra("number_for_service", userInputLong);
       startService(intentToOpenService);
       // todo: set views states according to the spec (below)
+
+
       progressBar.setVisibility(View.VISIBLE);
       editTextUserInput.setText(userInputString);
       editTextUserInput.setEnabled(false);
-      buttonCalculateRoots.setEnabled(false);
-      buttonCalc = false;
       userText = userInputString;
       progBarVisible = true;
       enableInput = false;
