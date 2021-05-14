@@ -1,3 +1,24 @@
+
+hypothetical question:
+I'm not sure but from what i understand the build variant can be "debug" or "release". through that
+maybe the runtime could be changed generally throught the code by toggeling between the two.
+
+
+"I pledge the highest level of ethical principles in support of academic excellence. 
+ I ensure that all of my work reflects my own abilities and not those of someone else."
+
+
+
+
+
+
+
+
+
+
+ KEPT THE BELLOW FOR FUTURE REFERENCE
+
+
 # Find Roots
 
 An Android exercise for developers teaching how to play around with intents, activities, services and broadcast receivers

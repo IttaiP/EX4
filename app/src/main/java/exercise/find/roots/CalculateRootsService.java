@@ -21,39 +21,45 @@ public class CalculateRootsService extends IntentService {
       return;
     }
 
-    long num = intent.getIntExtra("number", 0);
+    long num = intent.getLongExtra("number_for_service", 8);
+
     long root1=0;
     long root2=0;
     long elapsed=0;
     int i=2;
     for (;i<=num;i++){
       if((double)num/i == (int)num/i){
+        Log.d("aaaaaaaaaaaaaaaa",String.valueOf(i));
+
         root1 = i;
         root2 = num/i;
         break;
       }
       elapsed = System.currentTimeMillis()-timeStartMs;
+      Log.d("aaaaaaaaaaaaaaaa",String.valueOf(elapsed));
+
       if(elapsed >20000){
-        break;
+        Intent broadcastIntent = new Intent("stopped_calculations");
+        broadcastIntent.putExtra("time_until_give_up_seconds", 20);
+        sendBroadcast(broadcastIntent);
+
+        return;
       }
 
     }
-    Intent broadcastIntent = new Intent("action_finished");
+
+
+    Intent broadcastIntent = new Intent("found_roots");
     broadcastIntent.putExtra("original_number", num);
 
 
-    if(i>num){
-      broadcastIntent.putExtra("root1", num);
-      broadcastIntent.putExtra("root2", 1);
+    if(i>num) {
+      root1 = num;
+      root2 = 1;
     }
-    else if(root1 == 0){
-      broadcastIntent.putExtra("time_until_give_up_seconds", elapsed/1000);
-    }
-    else{
-      broadcastIntent.putExtra("root1", root1);
-      broadcastIntent.putExtra("root2", root2);
-    }
-
+    broadcastIntent.putExtra("root1", root1);
+    broadcastIntent.putExtra("root2", root2);
+    broadcastIntent.putExtra("elapsed", elapsed);
     sendBroadcast(broadcastIntent);
 
 
